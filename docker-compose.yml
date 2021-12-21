@@ -8,6 +8,8 @@ services:
       - "443:443"
     volumes:
       - nginx_data:/etc/nginx
+    networks:
+      - nginx_network
     logging:
       driver: "json-file"
       options:
@@ -15,3 +17,11 @@ services:
         max-size: 10m
 volumes:
   nginx_data:
+    external: true
+networks:
+  nginx_network:
+    external: true
+    
+# External true quiere decir que el volumen o el network ha sido creado fuera del docker-compose, por lo tanto el docker-compose va a fallar si no ha sido creado.
+# docker volume create nginx_data
+# docker network create nginx_network
